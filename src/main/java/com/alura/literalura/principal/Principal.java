@@ -41,7 +41,7 @@ public class Principal implements CommandLineRunner {
                 var menu = """
                         -----------------------------------
                         Elije la opción a través de su número:
-                        1- Buscar libro por titulo y guardarlo en la base de datos
+                        1- Buscar libro por titulo 
                         2- Listar libros registrados
                         3- Listar autores registrados
                         4- listar autores vivos en un determinado año
@@ -97,7 +97,7 @@ public class Principal implements CommandLineRunner {
             }
 
             var json = consumoAPI.obtenerDatos(URL_BASE + "?search=" + tituloLibro.replace(" ", "+"));
-            System.out.println("JSON recibido: " + json);
+
 
             var datosBusqueda = conversor.obtenerDatos(json, Datos.class);
             if (datosBusqueda.resultados().isEmpty()) {
@@ -107,7 +107,7 @@ public class Principal implements CommandLineRunner {
 
             System.out.println("-----------------------------------");
             System.out.println("Libros encontrados:");
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < Math.min(10, datosBusqueda.resultados().size()); i++) {
                 System.out.println((i + 1) + ". " + datosBusqueda.resultados().get(i).titulo());
             }
             System.out.println("Seleccione el número del libro que desea guardar (o 0 para cancelar):");
